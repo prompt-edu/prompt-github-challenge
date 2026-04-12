@@ -20,7 +20,7 @@ jobs:
   client:
     uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@v1.1.1
     with:
-      image-name: ghcr.io/prompt-edu/prompt-github-challenge/prompt-clients-devops-challenge-component
+      image-name: ghcr.io/prompt-edu/prompt-github-challenge/prompt-clients-github-challenge-component
       docker-file: client/Dockerfile
       docker-context: ./client
       tags: ${{ inputs.release_tag }}

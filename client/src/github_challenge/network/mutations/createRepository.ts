@@ -1,4 +1,4 @@
-import { devOpsChallengeAxiosInstance } from "../devOpsChallengeServerConfig";
+import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
 
 interface RepositoryResponse {
   message: string;
@@ -14,7 +14,7 @@ export const createRepository = async (
       GithubUsername: githubUsername,
     };
 
-    await devOpsChallengeAxiosInstance.post<RepositoryResponse>(
+    await gitHubChallengeAxiosInstance.post<RepositoryResponse>(
       `${coursePhaseID}/repository`,
       payload,
       {

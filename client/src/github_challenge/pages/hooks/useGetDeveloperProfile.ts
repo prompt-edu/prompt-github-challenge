@@ -7,7 +7,7 @@ export const useGetDeveloperProfile = () => {
   const { phaseId } = useParams<{ phaseId: string }>();
 
   return useQuery<DeveloperProfile | undefined>({
-    queryKey: ["devOpsDeveloperProfile", phaseId],
+    queryKey: ["gitHubDeveloperProfile", phaseId],
     queryFn: () => getDeveloperProfile(phaseId ?? ""),
   });
 };

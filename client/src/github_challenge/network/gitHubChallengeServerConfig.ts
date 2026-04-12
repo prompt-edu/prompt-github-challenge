@@ -2,9 +2,9 @@ import axios from "axios";
 import { parseURL } from "@/utils/parseURL";
 import { env } from "@/env";
 
-const devOpsChallengeServer = env.DEVOPS_CHALLENGE_HOST || "";
+const gitHubChallengeServer = env.GITHUB_CHALLENGE_HOST || "";
 
-const serverBaseUrl = parseURL(devOpsChallengeServer);
+const serverBaseUrl = parseURL(gitHubChallengeServer);
 
 export interface Patch {
   op: "replace" | "add" | "remove" | "copy";
@@ -27,4 +27,4 @@ authenticatedAxiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-export { authenticatedAxiosInstance as devOpsChallengeAxiosInstance };
+export { authenticatedAxiosInstance as gitHubChallengeAxiosInstance };

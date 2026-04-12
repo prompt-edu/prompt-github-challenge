@@ -1,11 +1,11 @@
 import { DeveloperProfile } from "../../interfaces/DeveloperProfile";
-import { devOpsChallengeAxiosInstance } from "../devOpsChallengeServerConfig";
+import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
 
 export const getDeveloperProfile = async (
   coursePhaseID: string,
 ): Promise<DeveloperProfile | undefined> => {
   try {
-    return (await devOpsChallengeAxiosInstance.get(`/${coursePhaseID}/info`))
+    return (await gitHubChallengeAxiosInstance.get(`/${coursePhaseID}/info`))
       .data;
   } catch (err: any) {
     console.error(err);

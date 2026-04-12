@@ -4,10 +4,10 @@ This document provides essential context for AI assistants working on the standa
 
 ## Project Overview
 
-**PROMPT GitHub Challenge** is the extracted DevOps Challenge client of the PROMPT platform. It contains:
+**PROMPT GitHub Challenge** is the extracted GitHub Challenge client of the PROMPT platform. It contains:
 
-- **Client**: DevOps Challenge micro-frontend (Webpack Module Federation remote)
-- **Deployment**: dedicated Docker Compose and GitHub Actions workflows for the DevOps Challenge client
+- **Client**: GitHub Challenge micro-frontend (Webpack Module Federation remote)
+- **Deployment**: dedicated Docker Compose and GitHub Actions workflows for the GitHub Challenge client
 
 For full platform context (core app, other course phases, shared architecture), see the main PROMPT repository:
 
@@ -16,10 +16,10 @@ For full platform context (core app, other course phases, shared architecture), 
 ## Repository Structure
 
 ```text
-client/                       # DevOps Challenge micro-frontend (port 3006)
+client/                       # GitHub Challenge micro-frontend (port 3006)
   routes/                     # Remote route registration for PROMPT core shell
   sidebar/                    # Sidebar registration for PROMPT core shell
-  src/devops_challenge/       # DevOps Challenge feature pages, hooks, state, network calls
+  src/github_challenge/       # GitHub Challenge feature pages, hooks, state, network calls
 
 .github/workflows/            # CI/CD for intro-course repo
 ```
@@ -92,7 +92,7 @@ Relevant variables from `.env.template`:
   - `client/src/provide/index.ts`
 - Keep required permissions aligned with backend role checks.
 
-## DevOps Challenge Specific Functional Areas
+## GitHub Challenge Specific Functional Areas
 
 Primary client pages include:
 

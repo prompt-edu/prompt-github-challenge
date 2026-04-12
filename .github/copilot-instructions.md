@@ -4,7 +4,7 @@ The canonical AI assistant instructions for this repository live in [`AGENTS.md`
 
 Read `AGENTS.md` for GitHub-challenge-specific conventions for:
 
-- `client/` (DevOps Challenge component)
+- `client/` (GitHub Challenge component)
 
 For full multi-service PROMPT architecture and additional patterns:
 

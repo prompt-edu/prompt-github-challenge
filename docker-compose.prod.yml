@@ -1,20 +1,20 @@
 services:
-  client-devops-challenge-component:
-    image: ghcr.io/prompt-edu/prompt-github-challenge/prompt-clients-devops-challenge-component:${CLIENT_IMAGE_TAG}
-    container_name: client-devops-challenge-component
+  client-github-challenge-component:
+    image: ghcr.io/prompt-edu/prompt-github-challenge/prompt-clients-github-challenge-component:${CLIENT_IMAGE_TAG}
+    container_name: client-github-challenge-component
     restart: unless-stopped
     networks:
       - prompt-network
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.devops-challenge-standalone.rule=Host(`${CORE_HOST}`) && PathPrefix(`/devops-challenge`)"
-      - "traefik.http.routers.devops-challenge-standalone.entrypoints=websecure"
-      - "traefik.http.routers.devops-challenge-standalone.priority=200"
-      - "traefik.http.routers.devops-challenge-standalone.tls.certresolver=letsencrypt"
-      - "traefik.http.middlewares.devops-challenge-standalone-strip.stripprefix.prefixes=/devops-challenge"
-      - "traefik.http.middlewares.devops-challenge-standalone-compress.compress=true"
-      - "traefik.http.routers.devops-challenge-standalone.middlewares=devops-challenge-standalone-strip@docker,devops-challenge-standalone-compress@docker"
-      - "traefik.http.services.devops-challenge-standalone.loadbalancer.server.port=80"
+      - "traefik.http.routers.github-challenge-standalone.rule=Host(`${CORE_HOST}`) && PathPrefix(`/github-challenge`)"
+      - "traefik.http.routers.github-challenge-standalone.entrypoints=websecure"
+      - "traefik.http.routers.github-challenge-standalone.priority=200"
+      - "traefik.http.routers.github-challenge-standalone.tls.certresolver=letsencrypt"
+      - "traefik.http.middlewares.github-challenge-standalone-strip.stripprefix.prefixes=/github-challenge"
+      - "traefik.http.middlewares.github-challenge-standalone-compress.compress=true"
+      - "traefik.http.routers.github-challenge-standalone.middlewares=github-challenge-standalone-strip@docker,github-challenge-standalone-compress@docker"
+      - "traefik.http.services.github-challenge-standalone.loadbalancer.server.port=80"
       - "traefik.docker.network=prompt-network"
 
 networks:

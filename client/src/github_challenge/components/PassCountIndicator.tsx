@@ -20,7 +20,7 @@ export const PassCountIndicator = () => {
     isError,
     refetch,
   } = useQuery<number>({
-    queryKey: ["devOpsPassedStudentsCount", phaseId],
+    queryKey: ["gitHubPassedStudentsCount", phaseId],
     queryFn: () => getPassedStudentsCount(phaseId ?? ""),
   });
 
