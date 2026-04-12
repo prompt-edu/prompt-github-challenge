@@ -6100,7 +6100,7 @@ __metadata:
     react-dom: "npm:^19.2.4"
     react-hook-form: "npm:^7.72.1"
     react-is: "npm:^19.2.4"
-    react-router-dom: "npm:^7.13.2"
+    react-router-dom: "npm:^7.14.0"
     style-loader: "npm:^4.0.0"
     tailwind-merge: "npm:^3.5.0"
     tailwindcss: "npm:^3.4.19"
@@ -9016,7 +9016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^7.13.2":
+"react-router-dom@npm:^7.13.2, react-router-dom@npm:^7.14.0":
   version: 7.14.0
   resolution: "react-router-dom@npm:7.14.0"
   dependencies:
