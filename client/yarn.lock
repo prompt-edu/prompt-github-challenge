@@ -2646,7 +2646,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.96.2":
+"@tanstack/react-query@npm:^5.99.0":
   version: 5.99.0
   resolution: "@tanstack/react-query@npm:5.99.0"
   dependencies:
@@ -6067,7 +6067,7 @@ __metadata:
     "@eslint/eslintrc": "npm:^3.3.5"
     "@eslint/js": "npm:^10.0.1"
     "@hookform/resolvers": "npm:^5.2.2"
-    "@tanstack/react-query": "npm:^5.96.2"
+    "@tanstack/react-query": "npm:^5.99.0"
     "@tanstack/react-table": "npm:^8.21.3"
     "@tumaet/prompt-shared-state": "npm:^1.0.10"
     "@tumaet/prompt-ui-components": "npm:^1.0.10"
