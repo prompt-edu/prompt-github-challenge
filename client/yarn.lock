@@ -6093,7 +6093,7 @@ __metadata:
     globals: "npm:^16.4.0"
     html-webpack-plugin: "npm:^5.6.6"
     lucide-react: "npm:^1.8.0"
-    postcss: "npm:^8.5.8"
+    postcss: "npm:^8.5.9"
     postcss-loader: "npm:8.2.1"
     prettier: "npm:^3.6.2"
     react: "npm:^19.2.4"
@@ -8545,7 +8545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.40, postcss@npm:^8.4.47, postcss@npm:^8.5.8":
+"postcss@npm:^8.4.40, postcss@npm:^8.4.47, postcss@npm:^8.5.8, postcss@npm:^8.5.9":
   version: 8.5.9
   resolution: "postcss@npm:8.5.9"
   dependencies:
