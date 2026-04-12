@@ -5050,61 +5050,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devops_challenge_component@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "devops_challenge_component@workspace:."
-  dependencies:
-    "@eslint/compat": "npm:^2.0.5"
-    "@eslint/eslintrc": "npm:^3.3.5"
-    "@eslint/js": "npm:^10.0.1"
-    "@hookform/resolvers": "npm:^5.2.2"
-    "@tanstack/react-query": "npm:^5.96.2"
-    "@tanstack/react-table": "npm:^8.21.3"
-    "@tumaet/prompt-shared-state": "npm:^1.0.10"
-    "@tumaet/prompt-ui-components": "npm:^1.0.10"
-    "@types/file-saver": "npm:^2.0.7"
-    "@types/node": "npm:^25.5.0"
-    "@types/react": "npm:^19.2.14"
-    "@types/react-dom": "npm:^19.2.3"
-    "@types/react-is": "npm:^19.2.0"
-    "@typescript-eslint/eslint-plugin": "npm:^8.57.2"
-    "@typescript-eslint/parser": "npm:^8.57.1"
-    autoprefixer: "npm:^10.4.27"
-    axios: "npm:^1.15.0"
-    clsx: "npm:^2.1.1"
-    copy-webpack-plugin: "npm:^13.0.1"
-    css-loader: "npm:^7.1.4"
-    date-fns: "npm:^4.1.0"
-    eslint: "npm:^10.0.3"
-    eslint-config-prettier: "npm:^10.1.8"
-    eslint-plugin-prettier: "npm:^5.5.5"
-    eslint-plugin-react: "npm:^7.37.5"
-    eslint-plugin-react-hooks: "npm:^7.0.1"
-    file-saver: "npm:^2.0.5"
-    globals: "npm:^16.4.0"
-    html-webpack-plugin: "npm:^5.6.6"
-    lucide-react: "npm:^1.7.0"
-    postcss: "npm:^8.5.8"
-    postcss-loader: "npm:8.2.1"
-    prettier: "npm:^3.6.2"
-    react: "npm:^19.2.4"
-    react-dom: "npm:^19.2.4"
-    react-hook-form: "npm:^7.72.1"
-    react-is: "npm:^19.2.4"
-    react-router-dom: "npm:^7.13.2"
-    style-loader: "npm:^4.0.0"
-    tailwind-merge: "npm:^3.5.0"
-    tailwindcss: "npm:^3.4.19"
-    ts-loader: "npm:^9.5.4"
-    typescript: "npm:^5.9.3"
-    webpack: "npm:^5.105.4"
-    webpack-cli: "npm:^7.0.2"
-    webpack-dev-server: "npm:^5.2.3"
-    zod: "npm:^4.3.6"
-    zustand: "npm:^5.0.12"
-  languageName: unknown
-  linkType: soft
-
 "didyoumean@npm:^1.2.2":
   version: 1.2.2
   resolution: "didyoumean@npm:1.2.2"
@@ -6113,6 +6058,61 @@ __metadata:
   checksum: 10c0/1118eb7e9b27bce0b9b6f042e98f0d067e26dfa1ca32bc4b56e892b615b57a5a4af9e6f801c7b0611a4afef2e31c4941be4c6026e0e6a480aaf1ddaf261113d5
   languageName: node
   linkType: hard
+
+"github_challenge_component@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "github_challenge_component@workspace:."
+  dependencies:
+    "@eslint/compat": "npm:^2.0.5"
+    "@eslint/eslintrc": "npm:^3.3.5"
+    "@eslint/js": "npm:^10.0.1"
+    "@hookform/resolvers": "npm:^5.2.2"
+    "@tanstack/react-query": "npm:^5.96.2"
+    "@tanstack/react-table": "npm:^8.21.3"
+    "@tumaet/prompt-shared-state": "npm:^1.0.10"
+    "@tumaet/prompt-ui-components": "npm:^1.0.10"
+    "@types/file-saver": "npm:^2.0.7"
+    "@types/node": "npm:^25.5.0"
+    "@types/react": "npm:^19.2.14"
+    "@types/react-dom": "npm:^19.2.3"
+    "@types/react-is": "npm:^19.2.0"
+    "@typescript-eslint/eslint-plugin": "npm:^8.57.2"
+    "@typescript-eslint/parser": "npm:^8.57.1"
+    autoprefixer: "npm:^10.4.27"
+    axios: "npm:^1.15.0"
+    clsx: "npm:^2.1.1"
+    copy-webpack-plugin: "npm:^13.0.1"
+    css-loader: "npm:^7.1.4"
+    date-fns: "npm:^4.1.0"
+    eslint: "npm:^10.0.3"
+    eslint-config-prettier: "npm:^10.1.8"
+    eslint-plugin-prettier: "npm:^5.5.5"
+    eslint-plugin-react: "npm:^7.37.5"
+    eslint-plugin-react-hooks: "npm:^7.0.1"
+    file-saver: "npm:^2.0.5"
+    globals: "npm:^16.4.0"
+    html-webpack-plugin: "npm:^5.6.6"
+    lucide-react: "npm:^1.7.0"
+    postcss: "npm:^8.5.8"
+    postcss-loader: "npm:8.2.1"
+    prettier: "npm:^3.6.2"
+    react: "npm:^19.2.4"
+    react-dom: "npm:^19.2.4"
+    react-hook-form: "npm:^7.72.1"
+    react-is: "npm:^19.2.4"
+    react-router-dom: "npm:^7.13.2"
+    style-loader: "npm:^4.0.0"
+    tailwind-merge: "npm:^3.5.0"
+    tailwindcss: "npm:^3.4.19"
+    ts-loader: "npm:^9.5.4"
+    typescript: "npm:^5.9.3"
+    webpack: "npm:^5.105.4"
+    webpack-cli: "npm:^7.0.2"
+    webpack-dev-server: "npm:^5.2.3"
+    zod: "npm:^4.3.6"
+    zustand: "npm:^5.0.12"
+  languageName: unknown
+  linkType: soft
 
 "glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
   version: 5.1.2

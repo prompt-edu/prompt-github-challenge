@@ -1,31 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { triggerAssessment } from "../../network/mutations/triggerAssessment";
+import { createRepository } from "../../network/mutations/createRepository";
 
-export const useTriggerAssessment = (
+export const useCreateRepository = (
   setError: (error: string | null) => void,
 ) => {
   const { phaseId } = useParams<{ phaseId: string }>();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: () => triggerAssessment(phaseId ?? ""),
+    mutationFn: (githubUsername?: string) =>
+      createRepository(githubUsername ?? "", phaseId ?? ""),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["devOpsDeveloperProfile", phaseId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["devOpsPassedStudentsCount", phaseId],
+        queryKey: ["gitHubDeveloperProfile", phaseId],
       });
       setError(null);
     },
     onError: (error: any) => {
-      queryClient.invalidateQueries({
-        queryKey: ["devOpsDeveloperProfile", phaseId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["devOpsPassedStudentsCount", phaseId],
-      });
       if (error?.response?.data?.error) {
         const serverError = error.response.data?.error;
         setError(serverError);

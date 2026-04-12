@@ -11,7 +11,7 @@ const { ModuleFederationPlugin } = webpack.container
 // ########################################
 // ### Component specific configuration ###
 // ########################################
-const COMPONENT_NAME = 'devops_challenge_component'
+const COMPONENT_NAME = 'github_challenge_component'
 const COMPONENT_DEV_PORT = 3006
 
 const __filename = fileURLToPath(import.meta.url)

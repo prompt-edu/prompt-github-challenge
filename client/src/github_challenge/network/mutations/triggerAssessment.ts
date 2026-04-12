@@ -1,10 +1,10 @@
-import { devOpsChallengeAxiosInstance } from "../devOpsChallengeServerConfig";
+import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
 
 export const triggerAssessment = async (
   coursePhaseID: string,
 ): Promise<string> => {
   try {
-    const response = await devOpsChallengeAxiosInstance.post<string>(
+    const response = await gitHubChallengeAxiosInstance.post<string>(
       `${coursePhaseID}/studentTest`,
       {},
       {

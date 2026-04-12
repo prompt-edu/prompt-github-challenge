@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-**PROMPT GitHub Challenge** - standalone DevOps Challenge client for the PROMPT platform.
+**PROMPT GitHub Challenge** - standalone GitHub Challenge client for the PROMPT platform.
 
 ## Project Instructions
 

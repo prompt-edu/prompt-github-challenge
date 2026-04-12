@@ -149,7 +149,7 @@ export const Assessment = () => {
                 <AlertTitle>Congratulations</AlertTitle>
                 <AlertDescription>
                   You have successfully completed the technical challenge and
-                  are eligible to participate in the DevOps course!
+                  are eligible to participate in the GitHub Challenge course!
                 </AlertDescription>
               </Alert>
             )}
@@ -163,7 +163,7 @@ export const Assessment = () => {
                 <AlertDescription>
                   You have successfully completed the technical challenge, but
                   due to limited capacity, you have been placed on the waitlist
-                  for the DevOps course.
+                  for the GitHub Challenge course.
                 </AlertDescription>
               </Alert>
             )}

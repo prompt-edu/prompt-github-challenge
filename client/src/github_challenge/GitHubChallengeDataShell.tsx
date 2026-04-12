@@ -7,7 +7,7 @@ import {
   CoursePhaseParticipationWithStudent,
 } from "@tumaet/prompt-shared-state";
 import { getOwnCoursePhaseParticipation } from "@/network/queries/getOwnCoursePhaseParticipation";
-import { useDevOpsChallengeStore } from "./zustand/useDevOpsChallengeStore";
+import { useGitHubChallengeStore } from "./zustand/useGitHubChallengeStore";
 import { useGetDeveloperProfile } from "./pages/hooks/useGetDeveloperProfile";
 import UnauthorizedPage from "@/components/UnauthorizedPage";
 import {
@@ -17,13 +17,13 @@ import {
   ErrorPage,
 } from "@tumaet/prompt-ui-components";
 
-interface DevOpsChallengeDataShellProps {
+interface GitHubChallengeDataShellProps {
   children: React.ReactNode;
 }
 
-export const DevOpsChallengeDataShell = ({
+export const GitHubChallengeDataShell = ({
   children,
-}: DevOpsChallengeDataShellProps) => {
+}: GitHubChallengeDataShellProps) => {
   const { isStudentOfCourse } = useCourseStore();
   const { courseId, phaseId } = useParams<{
     courseId: string;
@@ -32,7 +32,7 @@ export const DevOpsChallengeDataShell = ({
   const isStudent = isStudentOfCourse(courseId ?? "");
 
   const { setCoursePhaseParticipation, setDeveloperProfile } =
-    useDevOpsChallengeStore();
+    useGitHubChallengeStore();
 
   const [developerProfileSet, setDeveloperProfileSet] = useState(false);
   const [participationSet, setParticipationSet] = useState(false);

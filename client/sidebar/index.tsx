@@ -3,7 +3,7 @@ import { Role } from '@tumaet/prompt-shared-state'
 import { GitBranch } from 'lucide-react'
 
 const sidebarItems: SidebarMenuItemProps = {
-  title: 'DevOps Challenge',
+  title: 'GitHub Challenge',
   icon: <GitBranch />,
   goToPath: '',
   requiredPermissions: [Role.PROMPT_ADMIN, Role.COURSE_LECTURER, Role.COURSE_STUDENT],

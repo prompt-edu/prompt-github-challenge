@@ -1,5 +1,5 @@
 import { DeveloperWithInfo } from "../../interfaces/DeveloperWithInfo";
-import { devOpsChallengeAxiosInstance } from "../devOpsChallengeServerConfig";
+import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
 
 interface StudentResponse {
   CourseParticipationId: string;
@@ -15,7 +15,7 @@ export const getAllDeveloperProfiles = async (
 ): Promise<DeveloperWithInfo[]> => {
   try {
     const students = (
-      await devOpsChallengeAxiosInstance.get(`/${coursePhaseID}/students`)
+      await gitHubChallengeAxiosInstance.get(`/${coursePhaseID}/students`)
     ).data.students;
 
     // custom mapping as the response uses Uppercase keys, clashing with PROMPTs naming schema
