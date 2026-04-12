@@ -3372,7 +3372,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^25.5.0":
+"@types/node@npm:*, @types/node@npm:^25.6.0":
   version: 25.6.0
   resolution: "@types/node@npm:25.6.0"
   dependencies:
@@ -6072,7 +6072,7 @@ __metadata:
     "@tumaet/prompt-shared-state": "npm:^1.0.10"
     "@tumaet/prompt-ui-components": "npm:^1.0.10"
     "@types/file-saver": "npm:^2.0.7"
-    "@types/node": "npm:^25.5.0"
+    "@types/node": "npm:^25.6.0"
     "@types/react": "npm:^19.2.14"
     "@types/react-dom": "npm:^19.2.3"
     "@types/react-is": "npm:^19.2.0"
