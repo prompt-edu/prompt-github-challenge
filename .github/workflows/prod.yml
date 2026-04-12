@@ -1,0 +1,33 @@
+name: Production Release
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  lint-client:
+    uses: ./.github/workflows/lint-client.yml
+    secrets: inherit
+
+  build:
+    needs: [lint-client]
+    uses: ./.github/workflows/build-and-push.yml
+    with:
+      release_tag: "${{ github.event.release.tag_name }},latest"
+    secrets: inherit
+
+  deploy-prod:
+    needs: build
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prompt-prod-vm
+      client_image_tag: ${{ needs.build.outputs.client_image_tag }}
+    secrets: inherit

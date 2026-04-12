@@ -1,0 +1,61 @@
+name: Deploy GitHub Challenge
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      client_image_tag:
+        required: true
+        type: string
+    secrets:
+      VM_SSH_PRIVATE_KEY:
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: "https://${{ vars.CORE_HOST }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Copy compose file to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ vars.VM_HOST }}
+          username: ${{ vars.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+          proxy_host: ${{ vars.DEPLOYMENT_GATEWAY_HOST }}
+          proxy_username: ${{ vars.DEPLOYMENT_GATEWAY_USER }}
+          proxy_key: ${{ secrets.DEPLOYMENT_GATEWAY_SSH_KEY }}
+          proxy_port: ${{ vars.DEPLOYMENT_GATEWAY_PORT }}
+          source: "docker-compose.prod.yml"
+          target: "/home/${{ vars.VM_USERNAME }}/prompt-github-challenge/"
+
+      - name: Deploy GitHub challenge container
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ vars.VM_HOST }}
+          username: ${{ vars.VM_USERNAME }}
+          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+          proxy_host: ${{ vars.DEPLOYMENT_GATEWAY_HOST }}
+          proxy_username: ${{ vars.DEPLOYMENT_GATEWAY_USER }}
+          proxy_key: ${{ secrets.DEPLOYMENT_GATEWAY_SSH_KEY }}
+          proxy_port: ${{ vars.DEPLOYMENT_GATEWAY_PORT }}
+          script: |
+            mkdir -p /home/${{ vars.VM_USERNAME }}/prompt-github-challenge
+            cd /home/${{ vars.VM_USERNAME }}/prompt-github-challenge
+
+            cat > .env.prod <<EOT
+            CORE_HOST=${{ vars.CORE_HOST }}
+            CLIENT_IMAGE_TAG=${{ inputs.client_image_tag }}
+            EOT
+
+            docker compose -f docker-compose.prod.yml --env-file=.env.prod up --pull=always -d
