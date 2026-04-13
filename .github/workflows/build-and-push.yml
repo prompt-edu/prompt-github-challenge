@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   client:
-    uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@v1.1.1
+    uses: ls1intum/.github/.github/workflows/build-and-push-docker-image.yml@v1.2.0
     with:
       image-name: ghcr.io/prompt-edu/prompt-github-challenge/prompt-clients-github-challenge-component
       docker-file: client/Dockerfile
