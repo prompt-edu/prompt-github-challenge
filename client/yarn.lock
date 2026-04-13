@@ -6104,7 +6104,7 @@ __metadata:
     style-loader: "npm:^4.0.0"
     tailwind-merge: "npm:^3.5.0"
     tailwindcss: "npm:^3.4.19"
-    ts-loader: "npm:^9.5.4"
+    ts-loader: "npm:^9.5.7"
     typescript: "npm:^5.9.3"
     webpack: "npm:^5.105.4"
     webpack-cli: "npm:^7.0.2"
@@ -10175,7 +10175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-loader@npm:^9.5.4":
+"ts-loader@npm:^9.5.7":
   version: 9.5.7
   resolution: "ts-loader@npm:9.5.7"
   dependencies:
