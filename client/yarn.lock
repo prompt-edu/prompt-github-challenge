@@ -6106,7 +6106,7 @@ __metadata:
     tailwindcss: "npm:^3.4.19"
     ts-loader: "npm:^9.5.7"
     typescript: "npm:^5.9.3"
-    webpack: "npm:^5.105.4"
+    webpack: "npm:^5.106.1"
     webpack-cli: "npm:^7.0.2"
     webpack-dev-server: "npm:^5.2.3"
     zod: "npm:^4.3.6"
@@ -10614,7 +10614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.105.4":
+"webpack@npm:^5.106.1":
   version: 5.106.1
   resolution: "webpack@npm:5.106.1"
   dependencies:
