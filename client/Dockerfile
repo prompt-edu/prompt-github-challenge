@@ -1,9 +1,6 @@
 ARG IMAGE_TAG=latest
 FROM ghcr.io/prompt-edu/prompt/prompt-clients-base:${IMAGE_TAG} AS core-base
 
-# Yarn's node-modules linker can exceed the default V8 heap limit for this workspace in CI.
-ENV NODE_OPTIONS=--max-old-space-size=6144
-
 WORKDIR /app/github_challenge_component
 COPY package.json yarn.lock .yarnrc.yml ./
 RUN yarn install --immutable
