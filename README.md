@@ -11,8 +11,10 @@ Standalone repository for the PROMPT GitHub Challenge client.
 ## Local Development
 
 1. Copy `.env.template` to `.env` and adapt values if needed.
-2. Link the shared library from the main PROMPT repository with `ln -sfn ../prompt2/clients/shared_library shared_library`.
-3. Install client dependencies and run the client with `cd client && yarn install && yarn dev`.
+2. Install client dependencies and run the client with `cd client && yarn install && yarn dev`.
+
+The client consumes the published `@tumaet/prompt-shared-state` and
+`@tumaet/prompt-ui-components` packages directly.
 
 Use a Node LTS release (recommended: Node 22) for local client tooling.
 

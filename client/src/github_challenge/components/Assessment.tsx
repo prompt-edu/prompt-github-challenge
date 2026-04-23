@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useTriggerAssessment } from "../pages/hooks/useTriggerAssessment";
 import { useGetDeveloperProfile } from "../pages/hooks/useGetDeveloperProfile";
-import { getOwnCoursePhaseParticipation } from "@/network/queries/getOwnCoursePhaseParticipation";
 import {
   Button,
   Alert,
@@ -23,7 +22,10 @@ import {
   DialogTitle,
   cn,
 } from "@tumaet/prompt-ui-components";
-import type { CoursePhaseParticipationWithStudent } from "@tumaet/prompt-shared-state";
+import {
+  getOwnCoursePhaseParticipation,
+  type CoursePhaseParticipationWithStudent,
+} from "@tumaet/prompt-shared-state";
 import {
   RefreshCw,
   CheckCircle,

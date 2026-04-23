@@ -1,5 +1,4 @@
-import { SidebarMenuItemProps } from '@/interfaces/sidebar'
-import { Role } from '@tumaet/prompt-shared-state'
+import { SidebarMenuItemProps, Role } from '@tumaet/prompt-shared-state'
 import { GitBranch } from 'lucide-react'
 
 const sidebarItems: SidebarMenuItemProps = {
