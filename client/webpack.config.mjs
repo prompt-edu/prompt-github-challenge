@@ -72,9 +72,6 @@ const config = (env = {}) => {
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.mjs', '.jsx'],
-      alias: {
-        '@': path.resolve(__dirname, '../shared_library'),
-      },
     },
     plugins: [
       new ModuleFederationPlugin({

@@ -1,6 +1,5 @@
 import axios from "axios";
-import { parseURL } from "@/utils/parseURL";
-import { env } from "@/env";
+import { env, parseURL } from "@tumaet/prompt-shared-state";
 
 const gitHubChallengeServer = env.GITHUB_CHALLENGE_HOST || "";
 

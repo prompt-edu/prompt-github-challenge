@@ -13,10 +13,10 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 
-import { getCoursePhaseParticipations } from "@/network/queries/getCoursePhaseParticipations";
 import {
   CoursePhaseParticipationsWithResolution,
   PassStatus,
+  getCoursePhaseParticipations,
 } from "@tumaet/prompt-shared-state";
 
 import { DeveloperWithInfo } from "../../interfaces/DeveloperWithInfo";

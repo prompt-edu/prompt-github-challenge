@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import {
   useCourseStore,
   CoursePhaseParticipationWithStudent,
+  getOwnCoursePhaseParticipation,
 } from "@tumaet/prompt-shared-state";
-import { getOwnCoursePhaseParticipation } from "@/network/queries/getOwnCoursePhaseParticipation";
 import { useGitHubChallengeStore } from "./zustand/useGitHubChallengeStore";
 import { useGetDeveloperProfile } from "./pages/hooks/useGetDeveloperProfile";
-import UnauthorizedPage from "@/components/UnauthorizedPage";
 import {
   Alert,
   AlertDescription,
   AlertTitle,
   ErrorPage,
+  UnauthorizedPage,
 } from "@tumaet/prompt-ui-components";
 
 interface GitHubChallengeDataShellProps {
