@@ -3030,16 +3030,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tumaet/prompt-shared-state@npm:^1.0.11":
-  version: 1.0.11
-  resolution: "@tumaet/prompt-shared-state@npm:1.0.11"
-  dependencies:
-    typescript: "npm:^5.9.3"
-    zustand: "npm:^5.0.12"
-  checksum: 10c0/b34cf6ce8d911aff1206ab0035fc2d311dbe28c7bef8a9648004b1ad0319793c7f8d51fe189b15e42ae95aa6680ff8d6acf5d3db49c649c9ad53536307558c04
-  languageName: node
-  linkType: hard
-
 "@tumaet/prompt-shared-state@npm:^1.0.8":
   version: 1.0.10
   resolution: "@tumaet/prompt-shared-state@npm:1.0.10"
@@ -3047,6 +3037,23 @@ __metadata:
     typescript: "npm:^5.9.3"
     zustand: "npm:^5.0.12"
   checksum: 10c0/8a9d7ea0c8d0e68d18ba3091db024c86ee731afa32d1f350c43be211f553500626a09eca7f0a831885844d63a875d94e5023191dcb1026b08ea3e884aa56913c
+  languageName: node
+  linkType: hard
+
+"@tumaet/prompt-shared-state@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@tumaet/prompt-shared-state@npm:1.1.1"
+  dependencies:
+    axios: "npm:^1.15.2"
+    i18n-iso-countries: "npm:^7.14.0"
+    js-sha256: "npm:^0.11.1"
+    typescript: "npm:^5.9.3"
+    zustand: "npm:^5.0.12"
+  peerDependencies:
+    "@tanstack/react-query": ^5.99.2
+    react: ^19.2.5
+    react-router-dom: ^7.14.1
+  checksum: 10c0/147aa7deb44c9c7ef2175ebf93a7c256abae1c1a0b97c5323904f2aef5685e532e6d66f4390e77274f22bfa670f289508866923a7802b48c7fb8be920a9e5289
   languageName: node
   linkType: hard
 
@@ -5084,6 +5091,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"diacritics@npm:1.3.0":
+  version: 1.3.0
+  resolution: "diacritics@npm:1.3.0"
+  checksum: 10c0/bc99c3d2e64315b1830f1573eafe1f7b06fd5dbc9687f35ea8e2e25ce8618d1444d0a2c8313b98467b0aff1d0ee35b8f9f67ef214e56e810b37da3cdb29785ac
+  languageName: node
+  linkType: hard
+
 "didyoumean@npm:^1.2.2":
   version: 1.2.2
   resolution: "didyoumean@npm:1.2.2"
@@ -6103,7 +6117,7 @@ __metadata:
     "@hookform/resolvers": "npm:^5.2.2"
     "@tanstack/react-query": "npm:^5.99.2"
     "@tanstack/react-table": "npm:^8.21.3"
-    "@tumaet/prompt-shared-state": "npm:^1.0.11"
+    "@tumaet/prompt-shared-state": "npm:^1.1.1"
     "@tumaet/prompt-ui-components": "npm:^1.0.10"
     "@types/file-saver": "npm:^2.0.7"
     "@types/node": "npm:^25.6.0"
@@ -6503,6 +6517,15 @@ __metadata:
   version: 1.2.0
   resolution: "hyperdyperid@npm:1.2.0"
   checksum: 10c0/885ba3177c7181d315a856ee9c0005ff8eb5dcb1ce9e9d61be70987895d934d84686c37c981cceeb53216d4c9c15c1cc25f1804e84cc6a74a16993c5d7fd0893
+  languageName: node
+  linkType: hard
+
+"i18n-iso-countries@npm:^7.14.0":
+  version: 7.14.0
+  resolution: "i18n-iso-countries@npm:7.14.0"
+  dependencies:
+    diacritics: "npm:1.3.0"
+  checksum: 10c0/048efe0c95feb6666a72cb0918d6edcb6a392787b2998eefe7e42d19bf35ac27a02ad61efd64857399d7938dcf3e4c7710f622f7e6c8de9628cb4e4dd5534830
   languageName: node
   linkType: hard
 
@@ -7019,6 +7042,13 @@ __metadata:
   bin:
     jiti: lib/jiti-cli.mjs
   checksum: 10c0/79b2e96a8e623f66c1b703b98ec1b8be4500e1d217e09b09e343471bbb9c105381b83edbb979d01cef18318cc45ce6e153571b6c83122170eefa531c64b6789b
+  languageName: node
+  linkType: hard
+
+"js-sha256@npm:^0.11.1":
+  version: 0.11.1
+  resolution: "js-sha256@npm:0.11.1"
+  checksum: 10c0/ef8e294b6f38f218e4834cb653471dd1a76808cea93dc66eaffcb04124116bc36d6cebc4e8866753e184ab4e57892b6ef21918e8ab0450179a7e093ea962d974
   languageName: node
   linkType: hard
 
