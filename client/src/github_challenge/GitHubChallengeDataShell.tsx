@@ -63,7 +63,10 @@ export const GitHubChallengeDataShell = ({
     isProfilePending ||
     !developerProfileSet ||
     !participationSet;
-  const isError = isParticipationError || isProfileError || !fetchedProfile;
+  const isError = isParticipationError || isProfileError;
+
+  const participationErrorMessage =
+    participationError instanceof Error ? participationError.message : "";
 
   useEffect(() => {
     if (fetchedParticipation) {
@@ -76,7 +79,8 @@ export const GitHubChallengeDataShell = ({
     if (
       !fetchedProfile ||
       (isProfileError &&
-        developerProfileError?.message.includes("student not found"))
+        developerProfileError instanceof Error &&
+        developerProfileError.message.includes("student not found"))
     ) {
       setDeveloperProfile(undefined);
     } else if (fetchedProfile) {
@@ -86,7 +90,7 @@ export const GitHubChallengeDataShell = ({
   }, [
     fetchedProfile,
     setDeveloperProfile,
-    developerProfileError?.message,
+    developerProfileError,
     isProfileError,
   ]);
 
@@ -102,20 +106,18 @@ export const GitHubChallengeDataShell = ({
   // Data only relevant for students - not for lecturers
   if (isStudent && isError) {
     // if the participation is not found, we show the unauthorized page bc then the student has not yet processed to this phase
-    if (isParticipationError && participationError.message.includes("404")) {
+    if (isParticipationError && participationErrorMessage.includes("404")) {
       return <UnauthorizedPage backUrl={`/management/course/${courseId}`} />;
-    } else {
-      if (!isProfileError) {
-        return (
-          <ErrorPage
-            onRetry={() => {
-              refetchProfile();
-              refetchParticipation();
-            }}
-          />
-        );
-      }
     }
+
+    return (
+      <ErrorPage
+        onRetry={() => {
+          refetchProfile();
+          refetchParticipation();
+        }}
+      />
+    );
   }
 
   return (
