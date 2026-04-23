@@ -2,8 +2,10 @@ ARG IMAGE_TAG=latest
 FROM ghcr.io/prompt-edu/prompt/prompt-clients-base:${IMAGE_TAG} AS core-base
 
 WORKDIR /app/github_challenge_component
+COPY package.json yarn.lock .yarnrc.yml ./
+RUN yarn install --immutable
+
 COPY . ./
-RUN yarn install
 
 RUN yarn build
 
