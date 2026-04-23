@@ -4,11 +4,11 @@ import { RowModel } from "@tanstack/react-table";
 import {
   PassStatus,
   CoursePhaseParticipationWithStudent,
+  useUpdateCoursePhaseParticipationBatch,
 } from "@tumaet/prompt-shared-state";
-import { useUpdateCoursePhaseParticipationBatch } from "@/hooks/useUpdateCoursePhaseParticipationBatch";
 import { DeveloperWithInfo } from "../../../interfaces/DeveloperWithInfo";
-import { ActionDialog } from "@/components/table/GroupActionDialog";
 import {
+  ActionDialog,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,

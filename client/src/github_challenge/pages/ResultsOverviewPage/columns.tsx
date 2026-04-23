@@ -1,9 +1,12 @@
 import { format } from "date-fns";
 import { getChallengeStatusBadge } from "./utils/getChallengeStatusBadge";
 import { ChallengeStatus } from "./interfaces/challengeStatus";
-import { Badge, Checkbox } from "@tumaet/prompt-ui-components";
-import { SortableHeader } from "@/components/table/SortableHeader";
-import { getStatusBadge } from "@/utils/getStatusBadge";
+import {
+  Badge,
+  Checkbox,
+  SortableHeader,
+  getStatusBadge,
+} from "@tumaet/prompt-ui-components";
 
 export const columns = [
   {

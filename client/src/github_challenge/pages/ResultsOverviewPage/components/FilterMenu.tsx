@@ -3,7 +3,6 @@ import { ColumnFiltersState } from "@tanstack/react-table";
 import { PassStatus } from "@tumaet/prompt-shared-state";
 import { getChallengeStatusBadge } from "../utils/getChallengeStatusBadge";
 import { ChallengeStatus } from "../interfaces/challengeStatus";
-import { getStatusBadge } from "@/utils/getStatusBadge";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -12,6 +11,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   Button,
+  getStatusBadge,
 } from "@tumaet/prompt-ui-components";
 
 interface ColumnFiltersProps {
