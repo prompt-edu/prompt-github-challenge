@@ -1,17 +1,7 @@
 import { Loader2 } from "lucide-react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  ColumnFiltersState,
-  useReactTable,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getSortedRowModel,
-  flexRender,
-  SortingState,
-  VisibilityState,
-} from "@tanstack/react-table";
 
 import {
   CoursePhaseParticipationsWithResolution,
@@ -21,35 +11,52 @@ import {
 
 import { DeveloperWithInfo } from "../../interfaces/DeveloperWithInfo";
 import { getAllDeveloperProfiles } from "../../network/queries/getAllDeveloperProfiles";
-import { FilterMenu } from "./components/FilterMenu";
-import { GroupActionsMenu } from "./components/GroupActionsMenu";
-import { SelectStudentsDialog } from "./components/SelectStudentsDialog";
-import { useGetParticipationsWithProfiles } from "./hooks/useGetParticipationsWithProfiles";
-import { columns } from "./columns";
+import { ChallengeStatus } from "./interfaces/challengeStatus";
+import { getChallengeStatusBadge } from "./utils/getChallengeStatusBadge";
 import {
   ErrorPage,
-  Button,
-  ScrollArea,
-  ScrollBar,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Badge,
+  CoursePhaseParticipationsTable,
+  ExtraParticipantColumn,
   ManagementPageHeader,
-  useCustomElementWidth,
+  TableFilter,
 } from "@tumaet/prompt-ui-components";
+import { format } from "date-fns";
+
+const getChallengeStatus = (
+  profile: DeveloperWithInfo | undefined,
+): ChallengeStatus => {
+  if (!profile) {
+    return ChallengeStatus.NOT_STARTED;
+  }
+
+  return profile.hasPassed
+    ? ChallengeStatus.PASSED
+    : ChallengeStatus.NOT_COMPLETED;
+};
+
+const challengeStatusFilter: TableFilter = {
+  type: "select",
+  id: "challengeStatus",
+  label: "Challenge Status",
+  options: Object.values(ChallengeStatus),
+  optionLabel: (value) => getChallengeStatusBadge(value as ChallengeStatus),
+  badge: {
+    label: "Challenge Status",
+    displayValue: (value) => {
+      switch (value) {
+        case ChallengeStatus.PASSED:
+          return "Passed";
+        case ChallengeStatus.NOT_COMPLETED:
+          return "Not Completed";
+        default:
+          return "Not Started";
+      }
+    },
+  },
+};
 
 export const ResultsOverviewPage = () => {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [rowSelection, setRowSelection] = useState({});
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [isSelectDialogOpen, setSelectDialogOpen] = useState(false);
-  const [selectCount, setSelectCount] = useState(0);
-  const tableWidth = useCustomElementWidth("table-view");
-
   const { phaseId } = useParams<{ phaseId: string }>();
   const {
     data: coursePhaseParticipations,
@@ -74,53 +81,150 @@ export const ResultsOverviewPage = () => {
   const isPending =
     isCoursePhaseParticipationsPending || isDeveloperProfilesPending;
 
+  const participations = useMemo(
+    () => coursePhaseParticipations?.participations ?? [],
+    [coursePhaseParticipations?.participations],
+  );
+
   const handleRefresh = () => {
     refetchCoursePhaseParticipations();
     refetchDeveloperProfiles();
   };
 
-  const participantsWithProfiles = useGetParticipationsWithProfiles(
-    coursePhaseParticipations?.participations || [],
-    developerProfiles || [],
+  const developerProfilesByParticipationId = useMemo(
+    () =>
+      new Map(
+        (developerProfiles ?? []).map((profile) => [
+          profile.courseParticipationID,
+          profile,
+        ]),
+      ),
+    [developerProfiles],
   );
 
-  const table = useReactTable({
-    data: participantsWithProfiles,
-    columns: columns.map((col) => ({ ...col, enableSorting: true })),
-    state: { sorting, columnFilters, rowSelection, columnVisibility },
-    onSortingChange: setSorting,
-    onRowSelectionChange: setRowSelection,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-  });
+  const extraColumns = useMemo<ExtraParticipantColumn<unknown>[]>(() => {
+    const challengeStatusData = participations.map((participation) => ({
+      courseParticipationID: participation.courseParticipationID,
+      value: getChallengeStatus(
+        developerProfilesByParticipationId.get(
+          participation.courseParticipationID,
+        ),
+      ),
+    }));
 
-  // When the filters change, update the row selection so that only visible rows remain selected
-  useEffect(() => {
-    // Get the ids of rows that are visible after filtering
-    const visibleRowIDs = new Set(
-      table.getFilteredRowModel().rows.map((row) => row.id),
-    );
-    // Update rowSelection to only keep selections for visible rows
-    setRowSelection((prevSelection) => {
-      const newSelection = { ...prevSelection };
-      Object.keys(newSelection).forEach((id) => {
-        if (!visibleRowIDs.has(id)) {
-          delete newSelection[id];
-        }
-      });
-      return newSelection;
-    });
-  }, [columnFilters, table]);
-  const filteredRowsCount = table.getFilteredRowModel().rows.length;
-  const totalRowsCount = participantsWithProfiles?.length ?? 0;
-  const studentsPassedChallengeCount = participantsWithProfiles?.filter(
-    (p) => p.profile?.hasPassed,
+    const passingPositionData = participations.map((participation) => ({
+      courseParticipationID: participation.courseParticipationID,
+      value:
+        developerProfilesByParticipationId.get(
+          participation.courseParticipationID,
+        )?.passingPosition ?? null,
+    }));
+
+    const passedAtData = participations.map((participation) => ({
+      courseParticipationID: participation.courseParticipationID,
+      value:
+        developerProfilesByParticipationId.get(
+          participation.courseParticipationID,
+        )?.passedAt ?? null,
+    }));
+
+    const attemptsData = participations.map((participation) => ({
+      courseParticipationID: participation.courseParticipationID,
+      value:
+        developerProfilesByParticipationId.get(
+          participation.courseParticipationID,
+        )?.attempts ?? null,
+    }));
+
+    return [
+      {
+        id: "challengeStatus",
+        header: "Challenge Status",
+        accessorFn: (row) => row.challengeStatus,
+        cell: ({ getValue }) =>
+          getChallengeStatusBadge(getValue() as ChallengeStatus),
+        enableSorting: true,
+        sortingFn: (rowA, rowB, columnId) => {
+          const order = {
+            [ChallengeStatus.NOT_STARTED]: 0,
+            [ChallengeStatus.NOT_COMPLETED]: 1,
+            [ChallengeStatus.PASSED]: 2,
+          };
+          return (
+            order[rowA.getValue(columnId) as ChallengeStatus] -
+            order[rowB.getValue(columnId) as ChallengeStatus]
+          );
+        },
+        enableColumnFilter: true,
+        filterFn: (row, columnId, filterValue) => {
+          if (!Array.isArray(filterValue) || filterValue.length === 0) {
+            return true;
+          }
+
+          return filterValue.includes(row.getValue(columnId));
+        },
+        extraData: challengeStatusData,
+      },
+      {
+        id: "passingPosition",
+        header: "Position",
+        accessorFn: (row) => row.passingPosition,
+        cell: ({ getValue }) => getValue<number | null>() ?? "-",
+        enableSorting: true,
+        sortingFn: (rowA, rowB, columnId) => {
+          const valueA = rowA.getValue<number | null>(columnId) ?? -1;
+          const valueB = rowB.getValue<number | null>(columnId) ?? -1;
+          return valueA - valueB;
+        },
+        extraData: passingPositionData,
+      },
+      {
+        id: "passedAt",
+        header: "Passed At",
+        accessorFn: (row) => row.passedAt,
+        cell: ({ getValue }) => {
+          const passedAt = getValue<Date | null>();
+
+          return passedAt instanceof Date ? (
+            <Badge variant="outline">
+              {format(passedAt, "dd.MM.yyyy HH:mm")}
+            </Badge>
+          ) : (
+            "-"
+          );
+        },
+        enableSorting: true,
+        sortingFn: (rowA, rowB, columnId) => {
+          const valueA = rowA.getValue<Date | null>(columnId);
+          const valueB = rowB.getValue<Date | null>(columnId);
+
+          return (valueA?.toISOString() ?? "").localeCompare(
+            valueB?.toISOString() ?? "",
+          );
+        },
+        extraData: passedAtData,
+      },
+      {
+        id: "attempts",
+        header: "Attempts",
+        accessorFn: (row) => row.attempts,
+        cell: ({ getValue }) => getValue<number | null>() ?? "-",
+        enableSorting: true,
+        sortingFn: (rowA, rowB, columnId) => {
+          const valueA = rowA.getValue<number | null>(columnId) ?? -1;
+          const valueB = rowB.getValue<number | null>(columnId) ?? -1;
+          return valueA - valueB;
+        },
+        extraData: attemptsData,
+      },
+    ];
+  }, [developerProfilesByParticipationId, participations]);
+
+  const studentsPassedChallengeCount = developerProfiles?.filter(
+    (profile) => profile.hasPassed,
   ).length;
-  const studentsPassedCount = participantsWithProfiles?.filter(
-    (p) => p.participation.passStatus === PassStatus.PASSED,
+  const studentsPassedCount = participations.filter(
+    (participation) => participation.passStatus === PassStatus.PASSED,
   ).length;
 
   if (isError) return <ErrorPage onRetry={handleRefresh} />;
@@ -132,96 +236,21 @@ export const ResultsOverviewPage = () => {
     );
 
   return (
-    <div id="table-view" className="relative flex flex-col">
+    <div className="relative flex flex-col">
       <div className="space-y-6">
         <ManagementPageHeader>
           Developer Profile Management
         </ManagementPageHeader>
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end">
-          <div className="text-sm text-muted-foreground lg:w-1/2">
-            Showing {filteredRowsCount} of {totalRowsCount} applications |{" "}
-            {studentsPassedChallengeCount} passed challenge |{" "}
-            {studentsPassedCount} accepted
-          </div>
-          <div className="flex space-x-2 mt-4 lg:mt-0">
-            <Button
-              onClick={() => setSelectDialogOpen(true)}
-              disabled={studentsPassedChallengeCount <= 0}
-            >
-              Select First ... Passed Students
-            </Button>
-            <FilterMenu
-              columnFilters={columnFilters}
-              setColumnFilters={setColumnFilters}
-            />
-            <GroupActionsMenu
-              selectedRows={table.getSelectedRowModel()}
-              onClose={() => table.resetRowSelection()}
-            />
-          </div>
+        <div className="text-sm text-muted-foreground">
+          {studentsPassedChallengeCount ?? 0} passed challenge |{" "}
+          {studentsPassedCount} accepted
         </div>
-        <div className="rounded-md border" style={{ width: `${tableWidth}px` }}>
-          <ScrollArea className="h-[calc(100vh-300px)] overflow-x-scroll">
-            <Table>
-              <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <TableHead
-                        key={header.id}
-                        className="cursor-pointer"
-                        onClick={header.column.getToggleSortingHandler()}
-                      >
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow key={row.id}>
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id} className="font-medium">
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </div>
-
-        {isSelectDialogOpen && (
-          <SelectStudentsDialog
-            isOpen={isSelectDialogOpen}
-            onClose={() => setSelectDialogOpen(false)}
-            selectCount={selectCount}
-            setSelectCount={setSelectCount}
-            table={table}
-            setRowSelection={setRowSelection}
-            studentsPassedChallengeCount={studentsPassedChallengeCount}
-          />
-        )}
+        <CoursePhaseParticipationsTable
+          phaseId={phaseId ?? ""}
+          participants={participations}
+          extraColumns={extraColumns}
+          extraFilters={[challengeStatusFilter]}
+        />
       </div>
     </div>
   );
