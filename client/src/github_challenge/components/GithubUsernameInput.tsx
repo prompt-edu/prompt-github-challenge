@@ -85,19 +85,14 @@ export const GithubUsernameInput = () => {
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <div className="relative">
-              <Input
-                placeholder="GitHub username"
-                value={githubUsername}
-                onChange={handleUsernameChange}
-                className={`pl-10 ${validationError ? "border-red-500" : ""}`}
-                aria-invalid={!!validationError}
-                aria-describedby={
-                  validationError ? "username-error" : undefined
-                }
-              />
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            </div>
+            <Input
+              placeholder="GitHub username"
+              value={githubUsername}
+              onChange={handleUsernameChange}
+              className={validationError ? "border-red-500" : ""}
+              aria-invalid={!!validationError}
+              aria-describedby={validationError ? "username-error" : undefined}
+            />
             {validationError && (
               <p id="username-error" className="text-sm text-red-500">
                 {validationError}
