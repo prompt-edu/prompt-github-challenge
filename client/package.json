@@ -11,7 +11,7 @@
     "check-performance": "webpack --config webpack.config.mjs --mode=production --env NODE_ENV=production --env BUNDLE_SIZE=true"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.5",
+    "@eslint/compat": "^2.1.0",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.2.4",
