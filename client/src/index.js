@@ -1,5 +1,5 @@
-import "./styles.css";
+import './styles.css'
 
-import("./bootstrap");
+import('./bootstrap')
 
-export { StudentDetail } from "./provide/student_detail.tsx";
+export { StudentDetail } from './provide/student_detail.tsx'

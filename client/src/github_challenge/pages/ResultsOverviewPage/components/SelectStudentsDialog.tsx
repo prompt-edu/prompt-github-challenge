@@ -1,6 +1,6 @@
-import React from "react";
-import { Table } from "@tanstack/react-table";
+import type { Table } from '@tanstack/react-table'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
@@ -8,19 +8,22 @@ import {
   DialogHeader,
   DialogTitle,
   Input,
-  Button,
-} from "@tumaet/prompt-ui-components";
+} from '@tumaet/prompt-ui-components'
+import type React from 'react'
+import type { DeveloperWithInfo } from '../../../../interfaces/DeveloperWithInfo'
+
+interface SelectableStudent {
+  profile?: DeveloperWithInfo
+}
 
 interface SelectStudentsDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  selectCount: number;
-  setSelectCount: (count: number) => void;
-  table: Table<any>;
-  setRowSelection: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
-  >;
-  studentsPassedChallengeCount: number;
+  isOpen: boolean
+  onClose: () => void
+  selectCount: number
+  setSelectCount: (count: number) => void
+  table: Table<SelectableStudent>
+  setRowSelection: React.Dispatch<React.SetStateAction<Record<string, boolean>>>
+  studentsPassedChallengeCount: number
 }
 
 export const SelectStudentsDialog: React.FC<SelectStudentsDialogProps> = ({
@@ -38,54 +41,45 @@ export const SelectStudentsDialog: React.FC<SelectStudentsDialogProps> = ({
         <DialogHeader>
           <DialogTitle>Select Students</DialogTitle>
           <DialogDescription>
-            Specify how many rows to select (based on their challenge passing
-            position). Currently {studentsPassedChallengeCount} student
-            {studentsPassedChallengeCount === 1 ? " has" : "s have"} passed the
-            challenge.
+            Specify how many rows to select (based on their challenge passing position). Currently{' '}
+            {studentsPassedChallengeCount} student
+            {studentsPassedChallengeCount === 1 ? ' has' : 's have'} passed the challenge.
           </DialogDescription>
         </DialogHeader>
         <Input
-          placeholder="Select first ... students"
+          placeholder='Select first ... students'
           value={selectCount}
-          type="number"
-          min="0"
+          type='number'
+          min='0'
           max={studentsPassedChallengeCount}
           onChange={(e) => {
-            const value = parseInt(e.target.value);
-            if (
-              isNaN(value) ||
-              value < 0 ||
-              value > studentsPassedChallengeCount
-            ) {
+            const value = parseInt(e.target.value, 10)
+            if (Number.isNaN(value) || value < 0 || value > studentsPassedChallengeCount) {
               e.target.setCustomValidity(
                 `Please enter a number between 0 and ${studentsPassedChallengeCount} (max passed students count).`,
-              );
+              )
             } else {
-              e.target.setCustomValidity("");
-              setSelectCount(value);
+              e.target.setCustomValidity('')
+              setSelectCount(value)
             }
-            e.target.reportValidity();
+            e.target.reportValidity()
           }}
         />
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+          <Button variant='outline' onClick={onClose}>
             Cancel
           </Button>
           <Button
             onClick={() => {
-              const newSelection: Record<string, boolean> = {};
+              const newSelection: Record<string, boolean> = {}
               table.getFilteredRowModel().rows.forEach((row) => {
-                const profile = row.original.profile;
-                if (
-                  profile &&
-                  profile.passingPosition &&
-                  profile.passingPosition <= selectCount
-                ) {
-                  newSelection[row.id] = true;
+                const profile = row.original.profile
+                if (profile?.passingPosition && profile.passingPosition <= selectCount) {
+                  newSelection[row.id] = true
                 }
-              });
-              setRowSelection(newSelection);
-              onClose();
+              })
+              setRowSelection(newSelection)
+              onClose()
             }}
           >
             Select
@@ -93,5 +87,5 @@ export const SelectStudentsDialog: React.FC<SelectStudentsDialogProps> = ({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
