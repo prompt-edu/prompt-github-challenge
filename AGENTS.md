@@ -6,7 +6,7 @@ This document provides essential context for AI assistants working on the standa
 
 **PROMPT GitHub Challenge** is the extracted GitHub Challenge client of the PROMPT platform. It contains:
 
-- **Client**: GitHub Challenge micro-frontend (Webpack Module Federation remote)
+- **Client**: GitHub Challenge micro-frontend (Rspack Module Federation remote)
 - **Deployment**: dedicated Docker Compose and GitHub Actions workflows for the GitHub Challenge client
 
 For full platform context (core app, other course phases, shared architecture), see the main PROMPT repository:
@@ -56,7 +56,7 @@ Relevant variables from `.env.template`:
 ### Frontend (`client/`)
 
 - React + TypeScript
-- Webpack 5 + Module Federation
+- Rspack 2 + Module Federation
 - TanStack React Query
 - Zustand
 - Tailwind CSS
@@ -104,10 +104,10 @@ The standalone repo keeps the shared library external, matching the intro-course
 
 ## Module Federation Pattern (Client)
 
-In `client/webpack.config.ts`:
+In `client/rspack.config.mjs`:
 
-- Remote name: `intro_course_developer_component`
-- Dev port: `3005`
+- Remote name: `github_challenge_component`
+- Dev port: `3006`
 - Exposes:
   - `./routes`
   - `./sidebar`
