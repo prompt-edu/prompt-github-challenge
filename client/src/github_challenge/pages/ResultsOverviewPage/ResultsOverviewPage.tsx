@@ -151,11 +151,11 @@ export const ResultsOverviewPage = () => {
         id: 'passingPosition',
         header: 'Position',
         accessorFn: (row) => row.passingPosition,
-        cell: ({ getValue }) => getValue<number | null>() ?? '-',
+        cell: ({ getValue }) => (getValue() as number | null) ?? '-',
         enableSorting: true,
         sortingFn: (rowA, rowB, columnId) => {
-          const valueA = rowA.getValue<number | null>(columnId) ?? -1
-          const valueB = rowB.getValue<number | null>(columnId) ?? -1
+          const valueA = (rowA.getValue(columnId) as number | null) ?? -1
+          const valueB = (rowB.getValue(columnId) as number | null) ?? -1
           return valueA - valueB
         },
         extraData: passingPositionData,
@@ -165,7 +165,7 @@ export const ResultsOverviewPage = () => {
         header: 'Passed At',
         accessorFn: (row) => row.passedAt,
         cell: ({ getValue }) => {
-          const passedAt = getValue<Date | null>()
+          const passedAt = getValue() as Date | null
 
           return passedAt instanceof Date ? (
             <Badge variant='outline'>{format(passedAt, 'dd.MM.yyyy HH:mm')}</Badge>
@@ -175,8 +175,8 @@ export const ResultsOverviewPage = () => {
         },
         enableSorting: true,
         sortingFn: (rowA, rowB, columnId) => {
-          const valueA = rowA.getValue<Date | null>(columnId)
-          const valueB = rowB.getValue<Date | null>(columnId)
+          const valueA = rowA.getValue(columnId) as Date | null
+          const valueB = rowB.getValue(columnId) as Date | null
 
           return (valueA?.toISOString() ?? '').localeCompare(valueB?.toISOString() ?? '')
         },
@@ -186,11 +186,11 @@ export const ResultsOverviewPage = () => {
         id: 'attempts',
         header: 'Attempts',
         accessorFn: (row) => row.attempts,
-        cell: ({ getValue }) => getValue<number | null>() ?? '-',
+        cell: ({ getValue }) => (getValue() as number | null) ?? '-',
         enableSorting: true,
         sortingFn: (rowA, rowB, columnId) => {
-          const valueA = rowA.getValue<number | null>(columnId) ?? -1
-          const valueB = rowB.getValue<number | null>(columnId) ?? -1
+          const valueA = (rowA.getValue(columnId) as number | null) ?? -1
+          const valueB = (rowB.getValue(columnId) as number | null) ?? -1
           return valueA - valueB
         },
         extraData: attemptsData,

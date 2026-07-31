@@ -1,7 +1,7 @@
 import { env, parseURL } from '@tumaet/prompt-shared-state'
 import axios from 'axios'
 
-const gitHubChallengeServer = env.GITHUB_CHALLENGE_HOST || ''
+const gitHubChallengeServer = env.DEVOPS_CHALLENGE_HOST || ''
 
 const serverBaseUrl = parseURL(gitHubChallengeServer)
 
