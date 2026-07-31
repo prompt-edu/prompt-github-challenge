@@ -1,4 +1,4 @@
-export type DeveloperProfile = {
+export interface DeveloperProfile {
   repositoryUrl?: string
   attempts?: number
   maxAttempts?: number

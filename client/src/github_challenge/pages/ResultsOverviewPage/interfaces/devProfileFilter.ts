@@ -1,4 +1,4 @@
-export type DevProfileFilter = {
+export interface DevProfileFilter {
   passed: {
     passed: boolean
     notAssessed: boolean

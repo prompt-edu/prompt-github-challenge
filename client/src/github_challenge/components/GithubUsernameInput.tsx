@@ -22,17 +22,21 @@ export const GithubUsernameInput = () => {
   const [hasGithubProfile, setHasGithubProfile] = useState(false)
 
   const validateGithubUsername = (username: string): boolean => {
+    const normalizedUsername = username.trim()
+
     if (
-      !/^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])|\.(?=[a-zA-Z0-9]))*$/.test(username.trim()) &&
-      username.length > 0
+      !/^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])|\.(?=[a-zA-Z0-9]))*$/.test(
+        normalizedUsername,
+      ) &&
+      normalizedUsername.length > 0
     ) {
       setValidationError(
-        'GitHub username can only contain letters, numbers, hyphens, and dots. Hypens and dots cannot be at the beginning or end of the username.',
+        'GitHub username can only contain letters, numbers, hyphens, and dots. Hyphens and dots cannot be at the beginning or end of the username.',
       )
       return false
     }
 
-    if (username.length > 39) {
+    if (normalizedUsername.length > 39) {
       setValidationError('GitHub username cannot exceed 39 characters.')
       return false
     }
@@ -42,9 +46,9 @@ export const GithubUsernameInput = () => {
   }
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newUsername = e.target.value
-    setGithubUsername(newUsername)
-    validateGithubUsername(newUsername)
+    const normalizedUsername = e.target.value.trim()
+    setGithubUsername(normalizedUsername)
+    validateGithubUsername(normalizedUsername)
   }
 
   const isInputValid = githubUsername.length > 0 && !validationError && hasGithubProfile

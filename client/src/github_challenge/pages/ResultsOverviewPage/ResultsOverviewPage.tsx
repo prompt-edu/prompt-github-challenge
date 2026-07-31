@@ -29,7 +29,7 @@ const getChallengeStatus = (profile: DeveloperWithInfo | undefined): ChallengeSt
   return profile.hasPassed ? ChallengeStatus.PASSED : ChallengeStatus.NOT_COMPLETED
 }
 
-const challengeStatusFilter: TableFilter = {
+const CHALLENGE_STATUS_FILTER: TableFilter = {
   type: 'select',
   id: 'challengeStatus',
   label: 'Challenge Status',
@@ -224,7 +224,7 @@ export const ResultsOverviewPage = () => {
           phaseId={phaseId ?? ''}
           participants={participations}
           extraColumns={extraColumns}
-          extraFilters={[challengeStatusFilter]}
+          extraFilters={[CHALLENGE_STATUS_FILTER]}
         />
       </div>
     </div>

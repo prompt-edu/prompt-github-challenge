@@ -100,10 +100,10 @@ export const Assessment = () => {
             >
               {passed
                 ? 'Passed'
-                : !passed && (remainingAttempts !== maxAttempts || assessmentTriggered)
-                  ? 'Not Passed'
-                  : !passed && remainingAttempts === 0
-                    ? 'Failed'
+                : !passed && remainingAttempts === 0
+                  ? 'Failed'
+                  : !passed && (remainingAttempts !== maxAttempts || assessmentTriggered)
+                    ? 'Not Passed'
                     : 'Not Started'}
             </Badge>
             <Badge
