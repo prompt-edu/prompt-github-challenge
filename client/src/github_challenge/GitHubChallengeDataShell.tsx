@@ -65,9 +65,11 @@ export const GitHubChallengeDataShell = ({ children }: GitHubChallengeDataShellP
   useEffect(() => {
     if (fetchedParticipation) {
       setCoursePhaseParticipation(fetchedParticipation)
+    }
+    if (!isParticipationPending) {
       setParticipationSet(true)
     }
-  }, [fetchedParticipation, setCoursePhaseParticipation])
+  }, [fetchedParticipation, isParticipationPending, setCoursePhaseParticipation])
 
   useEffect(() => {
     if (

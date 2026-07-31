@@ -10,7 +10,7 @@ import {
   Input,
 } from '@tumaet/prompt-ui-components'
 import type React from 'react'
-import type { DeveloperWithInfo } from '../../../../interfaces/DeveloperWithInfo'
+import type { DeveloperWithInfo } from '../../../interfaces/DeveloperWithInfo'
 
 interface SelectableStudent {
   profile?: DeveloperWithInfo

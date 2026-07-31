@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "rspack serve --mode development",
-    "lint": "biome check src",
-    "lint:fix": "biome check src --fix",
+    "lint": "biome check .",
+    "lint:fix": "biome check . --fix",
     "build": "rspack --mode=production --env NODE_ENV=production",
     "check-performance": "rspack --mode=production --env NODE_ENV=production --env BUNDLE_SIZE=true"
   },

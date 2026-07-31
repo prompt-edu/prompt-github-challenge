@@ -1,7 +1,7 @@
-export type DeveloperWithInfo = {
+export interface DeveloperWithInfo {
   courseParticipationID: string
   attempts: number
   hasPassed: boolean
-  passedAt?: Date
-  passingPosition: number
+  passedAt: Date | null
+  passingPosition?: number
 }
