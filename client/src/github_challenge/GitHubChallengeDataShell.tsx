@@ -114,7 +114,7 @@ export const GitHubChallengeDataShell = ({ children }: GitHubChallengeDataShellP
       {!isStudent && (
         <Alert>
           <TriangleAlert className='h-4 w-4' />
-          <AlertTitle>Your are not a student of this course.</AlertTitle>
+          <AlertTitle>You are not a student of this course.</AlertTitle>
           <AlertDescription>
             The following components are disabled because you are not a student of this course. For
             configuring this view, please refer to the Intro Course in the Tutor Course.
