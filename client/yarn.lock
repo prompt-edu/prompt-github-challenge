@@ -4465,7 +4465,7 @@ __metadata:
     date-fns: "npm:^4.4.0"
     file-saver: "npm:^2.0.5"
     lucide-react: "npm:^1.26.0"
-    postcss: "npm:^8.5.22"
+    postcss: "npm:^8.5.23"
     postcss-loader: "npm:8.2.1"
     react: "npm:^19.2.8"
     react-dom: "npm:^19.2.8"
@@ -5737,7 +5737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.5.16, postcss@npm:^8.5.22":
+"postcss@npm:^8.5.16, postcss@npm:^8.5.23":
   version: 8.5.25
   resolution: "postcss@npm:8.5.25"
   dependencies:
