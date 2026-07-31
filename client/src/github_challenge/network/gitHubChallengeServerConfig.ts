@@ -1,29 +1,25 @@
-import axios from "axios";
-import { env, parseURL } from "@tumaet/prompt-shared-state";
+import { env, parseURL } from '@tumaet/prompt-shared-state'
+import axios from 'axios'
 
-const gitHubChallengeServer = env.GITHUB_CHALLENGE_HOST || "";
+const gitHubChallengeServer = env.GITHUB_CHALLENGE_HOST || ''
 
-const serverBaseUrl = parseURL(gitHubChallengeServer);
+const serverBaseUrl = parseURL(gitHubChallengeServer)
 
 export interface Patch {
-  op: "replace" | "add" | "remove" | "copy";
-  path: string;
-  value: string;
+  op: 'replace' | 'add' | 'remove' | 'copy'
+  path: string
+  value: string
 }
 
 const authenticatedAxiosInstance = axios.create({
   baseURL: serverBaseUrl,
-});
+})
 
 authenticatedAxiosInstance.interceptors.request.use((config) => {
-  if (
-    !!localStorage.getItem("jwt_token") &&
-    localStorage.getItem("jwt_token") !== ""
-  ) {
-    config.headers["Authorization"] =
-      `Bearer ${localStorage.getItem("jwt_token") ?? ""}`;
+  if (localStorage.getItem('jwt_token') && localStorage.getItem('jwt_token') !== '') {
+    config.headers.Authorization = `Bearer ${localStorage.getItem('jwt_token') ?? ''}`
   }
-  return config;
-});
+  return config
+})
 
-export { authenticatedAxiosInstance as gitHubChallengeAxiosInstance };
+export { authenticatedAxiosInstance as gitHubChallengeAxiosInstance }

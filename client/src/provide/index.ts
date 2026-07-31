@@ -1,1 +1,1 @@
-export { StudentDetail } from "./student_detail";
+export { StudentDetail } from './student_detail'

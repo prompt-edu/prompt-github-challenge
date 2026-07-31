@@ -4,7 +4,7 @@ export const App = () => {
       <h1>Prompt GitHub Challenge Component</h1>
       <p>Please load this component from inside the Prompt Core!</p>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App

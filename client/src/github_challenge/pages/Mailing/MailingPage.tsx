@@ -1,18 +1,11 @@
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { Loader2 } from "lucide-react";
-import {
-  getCoursePhase,
-  type CoursePhaseWithMetaData,
-} from "@tumaet/prompt-shared-state";
-import {
-  CoursePhaseMailing,
-  ErrorPage,
-  ManagementPageHeader,
-} from "@tumaet/prompt-ui-components";
+import { useQuery } from '@tanstack/react-query'
+import { type CoursePhaseWithMetaData, getCoursePhase } from '@tumaet/prompt-shared-state'
+import { CoursePhaseMailing, ErrorPage, ManagementPageHeader } from '@tumaet/prompt-ui-components'
+import { Loader2 } from 'lucide-react'
+import { useParams } from 'react-router-dom'
 
 export const MailingPage = () => {
-  const { phaseId } = useParams<{ phaseId: string }>();
+  const { phaseId } = useParams<{ phaseId: string }>()
 
   const {
     data: coursePhase,
@@ -20,30 +13,28 @@ export const MailingPage = () => {
     isError: isCoursePhaseError,
     refetch: refetchCoursePhase,
   } = useQuery<CoursePhaseWithMetaData>({
-    queryKey: ["course_phase", phaseId],
-    queryFn: () => getCoursePhase(phaseId ?? ""),
-  });
+    queryKey: ['course_phase', phaseId],
+    queryFn: () => getCoursePhase(phaseId ?? ''),
+  })
 
   const refetch = () => {
-    refetchCoursePhase();
-  };
+    refetchCoursePhase()
+  }
 
   return (
     <>
       {isCoursePhaseError ? (
         <ErrorPage onRetry={refetch} />
       ) : isCoursePhasePending ? (
-        <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <div className='flex justify-center items-center h-64'>
+          <Loader2 className='h-12 w-12 animate-spin text-primary' />
         </div>
       ) : (
-        <>
-          <div>
-            <ManagementPageHeader>Mailing</ManagementPageHeader>
-            <CoursePhaseMailing coursePhase={coursePhase} />
-          </div>
-        </>
+        <div>
+          <ManagementPageHeader>Mailing</ManagementPageHeader>
+          <CoursePhaseMailing coursePhase={coursePhase} />
+        </div>
       )}
     </>
-  );
-};
+  )
+}

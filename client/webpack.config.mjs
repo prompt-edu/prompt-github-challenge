@@ -1,10 +1,10 @@
-import path from 'path'
+import path from 'node:path'
 import 'webpack-dev-server'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import packageJson from './package.json' with { type: 'json' }
-import webpack from 'webpack'
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'node:url'
 import CopyPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import webpack from 'webpack'
+import packageJson from './package.json' with { type: 'json' }
 
 const { ModuleFederationPlugin } = webpack.container
 
@@ -85,7 +85,10 @@ const config = (env = {}) => {
         shared: {
           react: { singleton: true, requiredVersion: deps.react || false },
           'react-dom': { singleton: true, requiredVersion: deps['react-dom'] || false },
-          'react-router-dom': { singleton: true, requiredVersion: deps['react-router-dom'] || false },
+          'react-router-dom': {
+            singleton: true,
+            requiredVersion: deps['react-router-dom'] || false,
+          },
           '@tanstack/react-query': {
             singleton: true,
             requiredVersion: deps['@tanstack/react-query'] || false,
