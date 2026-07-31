@@ -1,41 +1,38 @@
-import { useParams } from "react-router-dom";
-import { Loader2, TriangleAlert } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useQuery } from '@tanstack/react-query'
 import {
-  useCourseStore,
-  CoursePhaseParticipationWithStudent,
+  type CoursePhaseParticipationWithStudent,
   getOwnCoursePhaseParticipation,
-} from "@tumaet/prompt-shared-state";
-import { useGitHubChallengeStore } from "./zustand/useGitHubChallengeStore";
-import { useGetDeveloperProfile } from "./pages/hooks/useGetDeveloperProfile";
+  useCourseStore,
+} from '@tumaet/prompt-shared-state'
 import {
   Alert,
   AlertDescription,
   AlertTitle,
   ErrorPage,
   UnauthorizedPage,
-} from "@tumaet/prompt-ui-components";
+} from '@tumaet/prompt-ui-components'
+import { Loader2, TriangleAlert } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useGetDeveloperProfile } from './pages/hooks/useGetDeveloperProfile'
+import { useGitHubChallengeStore } from './zustand/useGitHubChallengeStore'
 
 interface GitHubChallengeDataShellProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
-export const GitHubChallengeDataShell = ({
-  children,
-}: GitHubChallengeDataShellProps) => {
-  const { isStudentOfCourse } = useCourseStore();
+export const GitHubChallengeDataShell = ({ children }: GitHubChallengeDataShellProps) => {
+  const { isStudentOfCourse } = useCourseStore()
   const { courseId, phaseId } = useParams<{
-    courseId: string;
-    phaseId: string;
-  }>();
-  const isStudent = isStudentOfCourse(courseId ?? "");
+    courseId: string
+    phaseId: string
+  }>()
+  const isStudent = isStudentOfCourse(courseId ?? '')
 
-  const { setCoursePhaseParticipation, setDeveloperProfile } =
-    useGitHubChallengeStore();
+  const { setCoursePhaseParticipation, setDeveloperProfile } = useGitHubChallengeStore()
 
-  const [developerProfileSet, setDeveloperProfileSet] = useState(false);
-  const [participationSet, setParticipationSet] = useState(false);
+  const [developerProfileSet, setDeveloperProfileSet] = useState(false)
+  const [participationSet, setParticipationSet] = useState(false)
 
   // getting the course phase participation
   const {
@@ -45,9 +42,9 @@ export const GitHubChallengeDataShell = ({
     isError: isParticipationError,
     refetch: refetchParticipation,
   } = useQuery<CoursePhaseParticipationWithStudent>({
-    queryKey: ["course_phase_participation", phaseId],
-    queryFn: () => getOwnCoursePhaseParticipation(phaseId ?? ""),
-  });
+    queryKey: ['course_phase_participation', phaseId],
+    queryFn: () => getOwnCoursePhaseParticipation(phaseId ?? ''),
+  })
 
   // trying to get the developerProfile
   const {
@@ -56,84 +53,77 @@ export const GitHubChallengeDataShell = ({
     isPending: isProfilePending,
     isError: isProfileError,
     refetch: refetchProfile,
-  } = useGetDeveloperProfile();
+  } = useGetDeveloperProfile()
 
   const isPending =
-    isParticipationPending ||
-    isProfilePending ||
-    !developerProfileSet ||
-    !participationSet;
-  const isError = isParticipationError || isProfileError;
+    isParticipationPending || isProfilePending || !developerProfileSet || !participationSet
+  const isError = isParticipationError || isProfileError
 
   const participationErrorMessage =
-    participationError instanceof Error ? participationError.message : "";
+    participationError instanceof Error ? participationError.message : ''
 
   useEffect(() => {
     if (fetchedParticipation) {
-      setCoursePhaseParticipation(fetchedParticipation);
-      setParticipationSet(true);
+      setCoursePhaseParticipation(fetchedParticipation)
     }
-  }, [fetchedParticipation, setCoursePhaseParticipation]);
+    if (!isParticipationPending) {
+      setParticipationSet(true)
+    }
+  }, [fetchedParticipation, isParticipationPending, setCoursePhaseParticipation])
 
   useEffect(() => {
     if (
       !fetchedProfile ||
       (isProfileError &&
         developerProfileError instanceof Error &&
-        developerProfileError.message.includes("student not found"))
+        developerProfileError.message.includes('student not found'))
     ) {
-      setDeveloperProfile(undefined);
+      setDeveloperProfile(undefined)
     } else if (fetchedProfile) {
-      setDeveloperProfile(fetchedProfile);
+      setDeveloperProfile(fetchedProfile)
     }
-    setDeveloperProfileSet(true);
-  }, [
-    fetchedProfile,
-    setDeveloperProfile,
-    developerProfileError,
-    isProfileError,
-  ]);
+    setDeveloperProfileSet(true)
+  }, [fetchedProfile, setDeveloperProfile, developerProfileError, isProfileError])
 
   // if he is not a student -> we do not wait for the participation
   if (isStudent && isPending) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      <div className='flex justify-center items-center h-64'>
+        <Loader2 className='h-12 w-12 animate-spin text-primary' />
       </div>
-    );
+    )
   }
 
   // Data only relevant for students - not for lecturers
   if (isStudent && isError) {
     // if the participation is not found, we show the unauthorized page bc then the student has not yet processed to this phase
-    if (isParticipationError && participationErrorMessage.includes("404")) {
-      return <UnauthorizedPage backUrl={`/management/course/${courseId}`} />;
+    if (isParticipationError && participationErrorMessage.includes('404')) {
+      return <UnauthorizedPage backUrl={`/management/course/${courseId}`} />
     }
 
     return (
       <ErrorPage
         onRetry={() => {
-          refetchProfile();
-          refetchParticipation();
+          refetchProfile()
+          refetchParticipation()
         }}
       />
-    );
+    )
   }
 
   return (
     <>
       {!isStudent && (
         <Alert>
-          <TriangleAlert className="h-4 w-4" />
-          <AlertTitle>Your are not a student of this course.</AlertTitle>
+          <TriangleAlert className='h-4 w-4' />
+          <AlertTitle>You are not a student of this course.</AlertTitle>
           <AlertDescription>
-            The following components are disabled because you are not a student
-            of this course. For configuring this view, please refer to the Intro
-            Course in the Tutor Course.
+            The following components are disabled because you are not a student of this course. For
+            configuring this view, please refer to the Intro Course in the Tutor Course.
           </AlertDescription>
         </Alert>
       )}
       {children}
     </>
-  );
-};
+  )
+}

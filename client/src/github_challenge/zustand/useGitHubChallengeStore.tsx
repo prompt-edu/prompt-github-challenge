@@ -1,17 +1,17 @@
-import { create } from "zustand";
-import { CoursePhaseParticipationWithStudent } from "@tumaet/prompt-shared-state";
-import { DeveloperProfile } from "../interfaces/DeveloperProfile";
+import type { CoursePhaseParticipationWithStudent } from '@tumaet/prompt-shared-state'
+import { create } from 'zustand'
+import type { DeveloperProfile } from '../interfaces/DeveloperProfile'
 
 interface GitHubChallengeStoreState {
-  coursePhaseParticipation?: CoursePhaseParticipationWithStudent;
-  developerProfile?: DeveloperProfile;
+  coursePhaseParticipation?: CoursePhaseParticipationWithStudent
+  developerProfile?: DeveloperProfile
 }
 
 interface GitHubChallengeStoreActions {
-  setDeveloperProfile: (developerProfile?: DeveloperProfile) => void;
+  setDeveloperProfile: (developerProfile?: DeveloperProfile) => void
   setCoursePhaseParticipation: (
     coursePhaseParticipation: CoursePhaseParticipationWithStudent,
-  ) => void;
+  ) => void
 }
 
 export const useGitHubChallengeStore = create<
@@ -19,6 +19,5 @@ export const useGitHubChallengeStore = create<
 >((set) => ({
   developerProfile: undefined,
   setDeveloperProfile: (developerProfile) => set({ developerProfile }),
-  setCoursePhaseParticipation: (coursePhaseParticipation) =>
-    set({ coursePhaseParticipation }),
-}));
+  setCoursePhaseParticipation: (coursePhaseParticipation) => set({ coursePhaseParticipation }),
+}))

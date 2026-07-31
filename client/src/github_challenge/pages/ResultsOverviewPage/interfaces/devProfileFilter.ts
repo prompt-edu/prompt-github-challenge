@@ -1,12 +1,12 @@
-export type DevProfileFilter = {
+export interface DevProfileFilter {
   passed: {
-    passed: boolean;
-    notAssessed: boolean;
-    failed: boolean;
-  };
+    passed: boolean
+    notAssessed: boolean
+    failed: boolean
+  }
   challengePassed: {
-    passed: boolean;
-    notPassed: boolean;
-    unknown: boolean;
-  };
-};
+    passed: boolean
+    notPassed: boolean
+    unknown: boolean
+  }
+}

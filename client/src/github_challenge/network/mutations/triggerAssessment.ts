@@ -1,22 +1,20 @@
-import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
+import { gitHubChallengeAxiosInstance } from '../gitHubChallengeServerConfig'
 
-export const triggerAssessment = async (
-  coursePhaseID: string,
-): Promise<string> => {
+export const triggerAssessment = async (coursePhaseID: string): Promise<string> => {
   try {
     const response = await gitHubChallengeAxiosInstance.post<string>(
       `${coursePhaseID}/studentTest`,
       {},
       {
         headers: {
-          "Content-Type": "application/json-path+json",
+          'Content-Type': 'application/json-path+json',
         },
       },
-    );
+    )
 
-    return response.data;
+    return response.data
   } catch (err) {
-    console.error(err);
-    throw err;
+    console.error(err)
+    throw err
   }
-};
+}

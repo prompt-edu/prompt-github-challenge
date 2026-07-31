@@ -1,8 +1,8 @@
-import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
+import { gitHubChallengeAxiosInstance } from '../gitHubChallengeServerConfig'
 
 interface RepositoryResponse {
-  message: string;
-  repositoryUrl: string;
+  message: string
+  repositoryUrl: string
 }
 
 export const createRepository = async (
@@ -12,19 +12,19 @@ export const createRepository = async (
   try {
     const payload = {
       GithubUsername: githubUsername,
-    };
+    }
 
     await gitHubChallengeAxiosInstance.post<RepositoryResponse>(
       `${coursePhaseID}/repository`,
       payload,
       {
         headers: {
-          "Content-Type": "application/json-path+json",
+          'Content-Type': 'application/json-path+json',
         },
       },
-    );
+    )
   } catch (err) {
-    console.error(err);
-    throw err;
+    console.error(err)
+    throw err
   }
-};
+}

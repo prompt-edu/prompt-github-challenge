@@ -1,22 +1,21 @@
-import { DeveloperWithInfo } from "../../interfaces/DeveloperWithInfo";
-import { gitHubChallengeAxiosInstance } from "../gitHubChallengeServerConfig";
+import type { DeveloperWithInfo } from '../../interfaces/DeveloperWithInfo'
+import { gitHubChallengeAxiosInstance } from '../gitHubChallengeServerConfig'
 
 interface StudentResponse {
-  CourseParticipationId: string;
-  GithubUsername: string;
-  Attempts: number;
-  Passed: boolean;
-  PassedAt: string;
-  PassingPosition?: number;
+  CourseParticipationId: string
+  GithubUsername: string
+  Attempts: number
+  Passed: boolean
+  PassedAt: string
+  PassingPosition?: number
 }
 
 export const getAllDeveloperProfiles = async (
   coursePhaseID: string,
 ): Promise<DeveloperWithInfo[]> => {
   try {
-    const students = (
-      await gitHubChallengeAxiosInstance.get(`/${coursePhaseID}/students`)
-    ).data.students;
+    const students = (await gitHubChallengeAxiosInstance.get(`/${coursePhaseID}/students`)).data
+      .students
 
     // custom mapping as the response uses Uppercase keys, clashing with PROMPTs naming schema
     return students.map((student: StudentResponse) => ({
@@ -25,9 +24,9 @@ export const getAllDeveloperProfiles = async (
       hasPassed: student.Passed,
       passedAt: student.PassedAt ? new Date(student.PassedAt) : null,
       passingPosition: student.PassingPosition, // or another appropriate default
-    }));
+    }))
   } catch (err) {
-    console.error(err);
-    throw err;
+    console.error(err)
+    throw err
   }
-};
+}

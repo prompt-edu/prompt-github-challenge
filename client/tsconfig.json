@@ -16,5 +16,5 @@
     "typeRoots": ["./node_modules/@types", "./@types"],
     "baseUrl": "."
   },
-  "include": ["**/*.ts", "**/*.tsx", "src/index.js",  "tailwind.config.js"]
+  "include": ["**/*.ts", "**/*.tsx", "src/index.js", "tailwind.config.js"]
 }
