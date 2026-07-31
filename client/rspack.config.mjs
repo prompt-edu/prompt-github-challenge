@@ -1,16 +1,10 @@
-import path from 'path'
-import 'webpack-dev-server'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import rspack from '@rspack/core'
 import packageJson from './package.json' with { type: 'json' }
-import webpack from 'webpack'
-import { fileURLToPath } from 'url'
-import CopyPlugin from 'copy-webpack-plugin'
 
-const { ModuleFederationPlugin } = webpack.container
+const { ModuleFederationPlugin } = rspack.container
 
-// ########################################
-// ### Component specific configuration ###
-// ########################################
 const COMPONENT_NAME = 'github_challenge_component'
 const COMPONENT_DEV_PORT = 3006
 
@@ -18,9 +12,8 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const config = (env = {}) => {
-  const getVariable = (name) => env[name]
-  const IS_DEV = getVariable('NODE_ENV') !== 'production'
-  const deps = packageJson.dependencies || {}
+  const IS_DEV = env.NODE_ENV !== 'production'
+  const deps = packageJson.dependencies
 
   return {
     target: 'web',
@@ -28,16 +21,12 @@ const config = (env = {}) => {
     devtool: IS_DEV ? 'source-map' : undefined,
     entry: './src/index.js',
     devServer: {
-      static: {
-        directory: path.join(__dirname, 'public'),
-      },
+      static: { directory: path.join(__dirname, 'public') },
       compress: true,
       hot: true,
       historyApiFallback: true,
       port: COMPONENT_DEV_PORT,
-      client: {
-        progress: true,
-      },
+      client: { progress: true },
       open: false,
     },
     module: {
@@ -45,10 +34,12 @@ const config = (env = {}) => {
         {
           test: /\.tsx?$/,
           use: {
-            loader: 'ts-loader',
+            loader: 'builtin:swc-loader',
             options: {
-              configFile: path.resolve(__dirname, 'tsconfig.json'),
-              transpileOnly: true,
+              jsc: {
+                parser: { syntax: 'typescript', tsx: true },
+                transform: { react: { runtime: 'automatic' } },
+              },
             },
           },
           exclude: /node_modules/,
@@ -69,6 +60,7 @@ const config = (env = {}) => {
       filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, 'build'),
       publicPath: 'auto',
+      clean: true,
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.mjs', '.jsx'],
@@ -83,41 +75,29 @@ const config = (env = {}) => {
           './provide': './src/provide',
         },
         shared: {
-          react: { singleton: true, requiredVersion: deps.react || false },
-          'react-dom': { singleton: true, requiredVersion: deps['react-dom'] || false },
-          'react-router-dom': { singleton: true, requiredVersion: deps['react-router-dom'] || false },
+          react: { singleton: true, requiredVersion: deps.react },
+          'react-dom': { singleton: true, requiredVersion: deps['react-dom'] },
+          'react-router-dom': {
+            singleton: true,
+            requiredVersion: deps['react-router-dom'],
+          },
           '@tanstack/react-query': {
             singleton: true,
-            requiredVersion: deps['@tanstack/react-query'] || false,
+            requiredVersion: deps['@tanstack/react-query'],
           },
           '@tumaet/prompt-shared-state': {
             singleton: true,
-            requiredVersion: deps['@tumaet/prompt-shared-state'] || false,
+            requiredVersion: deps['@tumaet/prompt-shared-state'],
           },
         },
       }),
-      new CopyPlugin({
-        patterns: [{ from: 'public' }],
-      }),
-      new HtmlWebpackPlugin({
+      new rspack.CopyRspackPlugin({ patterns: [{ from: 'public' }] }),
+      new rspack.HtmlRspackPlugin({
         template: 'public/template.html',
-        minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          keepClosingSlash: true,
-          minifyJS: true,
-          minifyCSS: true,
-          minifyURLs: true,
-        },
+        minify: !IS_DEV,
       }),
     ],
-    cache: {
-      type: 'filesystem',
-    },
+    cache: { type: 'persistent' },
   }
 }
 
