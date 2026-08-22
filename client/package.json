@@ -11,10 +11,10 @@
     "check-performance": "rspack --mode=production --env NODE_ENV=production --env BUNDLE_SIZE=true"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.7",
-    "@module-federation/runtime-tools": "^2.8.1",
-    "@rspack/cli": "^2.1.8",
-    "@rspack/core": "^2.1.8",
+    "@biomejs/biome": "2.5.8",
+    "@module-federation/runtime-tools": "^2.8.2",
+    "@rspack/cli": "^2.1.10",
+    "@rspack/core": "^2.1.10",
     "@rspack/dev-server": "^2.2.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/file-saver": "^2.0.7",
@@ -23,7 +23,7 @@
     "@types/react-dom": "^19.2.4",
     "@types/react-is": "^19.2.0",
     "css-loader": "^7.1.4",
-    "postcss": "^8.5.25",
+    "postcss": "^8.5.26",
     "postcss-loader": "8.2.1",
     "style-loader": "^4.0.0",
     "tailwindcss": "^4.3.3",
@@ -31,23 +31,23 @@
   },
   "packageManager": "yarn@4.18.0",
   "dependencies": {
-    "@hookform/resolvers": "^5.7.1",
+    "@hookform/resolvers": "^5.9.0",
     "@tanstack/react-query": "^5.101.4",
     "@tanstack/react-table": "^8.21.3",
-    "@tumaet/prompt-shared-state": "^1.1.1",
+    "@tumaet/prompt-shared-state": "^1.2.0",
     "@tumaet/prompt-ui-components": "^1.1.6",
     "axios": "^1.19.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
     "file-saver": "^2.0.5",
-    "lucide-react": "^1.28.0",
+    "lucide-react": "^1.31.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-hook-form": "^7.84.0",
+    "react-hook-form": "^7.85.0",
     "react-is": "^19.2.8",
     "react-router-dom": "^7.18.2",
     "tailwind-merge": "^3.6.0",
     "zod": "^4.4.3",
-    "zustand": "^5.0.14"
+    "zustand": "^5.0.15"
   }
 }
